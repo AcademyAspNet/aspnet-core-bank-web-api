@@ -1,4 +1,6 @@
 using _BankWebAPI.Data;
+using _BankWebAPI.Services;
+using _BankWebAPI.Services.Implementations;
 using Microsoft.EntityFrameworkCore;
 
 namespace _BankWebAPI
@@ -8,6 +10,8 @@ namespace _BankWebAPI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddScoped<IClientService, ClientService>();
 
             builder.Services.AddControllers();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
