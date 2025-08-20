@@ -60,7 +60,7 @@ namespace _BankWebAPI.Services.Implementations
 
             //return true;
 
-            int affectedRows = _database.Clients.Select(c => c.Id == clientId)
+            int affectedRows = _database.Clients.Where(c => c.Id == clientId)
                                                 .ExecuteDelete();
 
             return affectedRows > 0;
