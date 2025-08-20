@@ -9,6 +9,7 @@ namespace _BankWebAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddControllers();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 string? connectionString = builder.Configuration.GetConnectionString("Default");
@@ -21,7 +22,7 @@ namespace _BankWebAPI
 
             var app = builder.Build();
 
-            
+            app.MapControllers();
 
             app.Run();
         }
