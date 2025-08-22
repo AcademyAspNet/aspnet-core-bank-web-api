@@ -54,5 +54,13 @@ namespace _BankWebAPI.Controllers
         {
             return _clientService.DeleteClientById(clientId) ? Ok() : NotFound();
         }
+
+        [HttpGet]
+        [Route("/test")]
+        public IActionResult RandomEndpoint()
+        {
+            throw new Exception();
+            return Content("Привет!");
+        }
     }
 }

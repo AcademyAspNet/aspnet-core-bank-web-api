@@ -1,7 +1,9 @@
 using _BankWebAPI.Data;
+using _BankWebAPI.Middleware;
 using _BankWebAPI.Services;
 using _BankWebAPI.Services.Implementations;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace _BankWebAPI
 {
@@ -25,6 +27,22 @@ namespace _BankWebAPI
             });
 
             var app = builder.Build();
+
+            app.Use(async (context, next) =>
+            {
+                try
+                {
+                    await next(context);
+                }
+                catch (Exception exception)
+                {
+                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    Console.WriteLine($"Возникла ошибка! {exception.Message}");
+                }
+            });
+
+            app.UseLogging();
+            app.UseApiKeyValidation();
 
             app.MapControllers();
 
